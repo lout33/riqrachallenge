@@ -1,6 +1,7 @@
 // import express from 'express';
 const express = require('express')
-const app = express()
+const app = express();
+const dotenv = require('dotenv');
 const Sequelize = require('sequelize');
 var graphqlHTTP = require('express-graphql');
 var { buildSchema } = require('graphql');
@@ -52,8 +53,10 @@ app.get('/', function (req, res) {
   res.send('Hello World')
 })
 
-const sequelize = new Sequelize('riqra-schema', 'root', 'password', {
-  host: 'localhost',
+dotenv.config();
+
+const sequelize = new Sequelize(process.env.Database, process.env.Username, process.env.Password, {
+  host: process.env.Host,
   dialect: 'mysql',
   logging: console.log,
   timezone: '-05:00',
@@ -63,6 +66,11 @@ const sequelize = new Sequelize('riqra-schema', 'root', 'password', {
     typeCast: true
   }
 });
+
+// mongoose.connect(process.env.DB_CONNECT,
+//   { useNewUrlParser: true, useUnifiedTopology: true },
+//   () => console.log('connecte to db')
+// );
 
 
 const Product = sequelize.define('product', {
