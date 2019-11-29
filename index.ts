@@ -5,10 +5,8 @@ import { sequelize } from './ConfigSql'
 
 const express = require('express')
 const app = express();
-
-var graphqlHTTP = require('express-graphql');
-
-var cors = require('cors');
+const graphqlHTTP = require('express-graphql');
+const cors = require('cors');
 
 app.get('/', function (req: any, res: any) {
   res.send('Hello World')
@@ -27,8 +25,6 @@ sequelize
 ///cors
 app.use(cors())
 app.use(express.json());
-
-
 // app.listen(8000)
 app.use('/graphql', graphqlHTTP({
   schema: schema,
